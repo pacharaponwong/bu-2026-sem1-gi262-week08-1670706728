@@ -15,10 +15,11 @@ namespace Assignment
         private int Factorial(int n)
         {
             // base case
-
+            if (n<=1)
+                return 1;
             // recursive case
 
-            return -1;
+            return n * Factorial(n - 1);
         }
 
         public int LCT02_RecursiveFibonacci(int n)
@@ -29,10 +30,12 @@ namespace Assignment
         private int Fibonacci(int n)
         {
             // base case
-
+            if(n <= 1)
+                return n;
+            
             // recursive case
 
-            return -1;
+            return Fibonacci (n-1) + Fibonacci(n - 2);
         }
 
         public int LCT03_RecursiveSumOfOneToN(int n)
@@ -43,11 +46,15 @@ namespace Assignment
         private int SumOfOneToN(int n)
         {
             // base case
+            if (n <= 0)
+            {
+                return 0;
+            }
 
             // recursive case
-
-            return -1;
+            return n + SumOfOneToN(n - 1);
         }
+        
 
         public int LCT04_RecursiveSumOfNumbers(int[] numbers)
         {
@@ -56,16 +63,19 @@ namespace Assignment
 
         private int SumOfNumbers(int[] numbers, int index)
         {
-            // base case
+            /// base case
+            if (index >= numbers.Length)
+            {
+                return 0;
+            }
 
             // recursive case
-
-            return -1;
+            return numbers[index] + SumOfNumbers(numbers, index + 1);
         }
 
         #endregion
 
-        #region Assignment
+            #region Assignment
 
         public int ASN01_RecursivePower(int baseNum, int exponent)
         {

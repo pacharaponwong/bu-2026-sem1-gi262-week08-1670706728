@@ -12,10 +12,11 @@ public class DialogueSequen : MonoBehaviour
     {
         // ตรวจสอบ UI และตั้งค่า
         // 1. call LoadConversation() to set up the dialogue tree
-
+        LoadConversations();
 
         // 2. set the current node to the root of the tree and print its contents
-
+        currentNode = tree.root;    
+        dialogueUI = GetComponent<NPC>().dialogueUI; 
     }
 
     private void LoadConversations()
@@ -46,7 +47,7 @@ public class DialogueSequen : MonoBehaviour
         //             |
         //             +-- NPC: Safe travels, adventurer.
 
-        // 3. Create the dialogue nodes
+        //3. Create the dialogue nodes
         DialogueNode greeting = new DialogueNode("Ah, traveler! What brings you to this old place?");
         DialogueNode askForQuest = new DialogueNode("I have a task for you. There’s a beast in the woods. Can you take care of it?");
         DialogueNode questDenied = new DialogueNode("You're not ready for this yet. Come back when you're stronger.");
@@ -59,18 +60,20 @@ public class DialogueSequen : MonoBehaviour
         // 4. Build the tree, adding custom responses ...
 
         // [1] add greeting's next node: askForQuest, with text: "Can you give me a quest?"
-
+        greeting.AddNext(askForQuest, "Can you give me a quest?");
         // [2] add greeting's next node: directionsVillage, with text: "Where is the village?" 
-
+        greeting.AddNext(directionsVillage, "Where is the village?");
         // [3] add greeting's next node: directionsForest, with text: "How do I get to the forest?" 
-
+        greeting.AddNext(directionsForest, "How do I get to the forest?");
         // [4] add greeting's next node: goodbye, with text: "Goodbye."
-
+        greeting.AddNext(goodbye, "Goodbye.");
         // [5] add askForQuest's next node: questDenied, with text: "I’m ready for anything!"
-
+        askForQuest.AddNext(questDenied, "I’m ready for anything!");
         // [6] add askForQuest's next node: goodbye, with text: "Maybe later."
-
+        askForQuest.AddNext(goodbye, "Maybe later.");
         // 5. Set up the root of the dialogue tree
+
+        tree = new DialogueTree(greeting);
     }
 
     // **เมธอดใหม่สำหรับรับการเลือกจากปุ่ม UI**
